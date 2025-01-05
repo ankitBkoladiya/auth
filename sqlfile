@@ -1,0 +1,114 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Jan 05, 2025 at 01:56 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.0.30
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+--
+-- Database: `db_wherhous`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `roles`
+--
+
+CREATE TABLE `roles` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `createdAt` datetime DEFAULT current_timestamp(),
+  `updatedAt` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `roles`
+--
+
+INSERT INTO `roles` (`id`, `name`, `createdAt`, `updatedAt`) VALUES
+(1, 'admin', '2025-01-04 15:01:44', '2025-01-04 15:01:44'),
+(2, 'user', '2025-01-04 16:08:42', '2025-01-04 16:08:42');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `RoleId` int(11) DEFAULT NULL,
+  `createdAt` datetime DEFAULT current_timestamp(),
+  `updatedAt` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `RoleId`, `createdAt`, `updatedAt`) VALUES
+(1, 'john_doe', 'john@example.com', '$2a$10$wgic2K9l8UAy7S7h0PSylO2DPyMrQnWTUeus07KE9B3AUa9F8RUMe', 1, '2025-01-04 15:01:45', '2025-01-04 15:01:45'),
+(2, 'john_doe1', 'john1@example.com', '$2a$10$Li5F4l5ITjPFSWSWP.5MYOBSOD7yh2dhEjJZcU.Azv5ELSFfrEhF2', 1, '2025-01-04 16:06:08', '2025-01-04 16:06:08'),
+(3, 'john_doe2', 'john2@example.com', '$2a$10$Ob2kPYqPmOURspMnTgqdEOuNzUiN7enyYTI6ifdkcUdHGtm5s5fou', 2, '2025-01-04 16:08:42', '2025-01-04 16:08:42'),
+(4, 'john_doe3', 'john3@example.com', '$2a$10$NUqYyhaYj/FpGQGyvWdjVeEkO3/QzfLZO3LeCAf2MMQcMXfHPEJWe', 2, '2025-01-04 16:13:48', '2025-01-04 16:13:48'),
+(5, 'john_doe4', 'john4@example.com', '$2a$10$Tz1x6XnBquNGwBYExLYB1eC9JKqUuPHdyEeOKl4mrxD5QWK4DGX0K', 2, '2025-01-04 16:20:57', '2025-01-04 16:20:57'),
+(6, 'john_doe5', 'john5@example.com', '$2a$10$NTtvMYOrYwVF5G.s99I7reHiLI3T.nGaVaI9VaAffUPZbMPM5YG7G', 2, '2025-01-05 12:45:55', '2025-01-05 12:45:55'),
+(7, 'john_doe6', 'john6@example.com', '$2a$10$jWBJqK/emJ48aaQ/smtpoe2AHgMAiDtW8.y3X2SLhWho1TtZpJgNe', 2, '2025-01-05 12:47:03', '2025-01-05 12:47:03'),
+(8, 'john_doe7', 'john7@example.com', '$2a$10$mGkLQ6wlow8T.yyNEfm3h.aK12Gvifsz3eQqUDkX15.21IyNt/VjK', 2, '2025-01-05 12:51:58', '2025-01-05 12:51:58');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`),
+  ADD UNIQUE KEY `email` (`email`),
+  ADD KEY `RoleId` (`RoleId`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`RoleId`) REFERENCES `roles` (`id`);
+COMMIT;
